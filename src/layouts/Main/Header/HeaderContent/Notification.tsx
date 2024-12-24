@@ -56,6 +56,7 @@ export default function Notification() {
   const anchorRef = useRef<HTMLAnchorElement>(null);
   const [read, setRead] = useState(2);
   const [open, setOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
@@ -69,8 +70,20 @@ export default function Notification() {
 
   const iconBackColorOpen = 'grey.100';
 
+
+  const handleClick = (event: any) => {
+    setAnchorEl(event.currentTarget);
+    setOpen((previousOpen) => !previousOpen);
+  };
+
+  const canBeOpen = open && Boolean(anchorEl);
+  const id = canBeOpen ? 'transition-popper' : undefined;
+
+
   return (
-    <Box sx={{ flexShrink: 0, ml: 0.75 }}>
+    <div>
+
+
       <IconButton
         color='secondary'
         sx={{
@@ -80,26 +93,21 @@ export default function Notification() {
         aria-label="open profile"
         aria-controls={open ? 'profile-grow' : undefined}
         aria-haspopup="true"
-        onClick={handleToggle}
-
-
+        onClick={handleClick}
       >
         <Badge badgeContent={read} color="primary">
           <BellOutlined />
         </Badge>
       </IconButton>
       <Popper
-        placement={matchesXs ? 'bottom' : 'bottom-end'}
+        id={id}
         open={open}
-        anchorEl={anchorRef.current}
-        role={undefined}
+        anchorEl={anchorEl}
         transition
-        disablePortal
-        popperOptions={{ modifiers: [{ name: 'offset', options: { offset: [matchesXs ? -5 : 0, 9] } }] }}
       >
         {({ TransitionProps }) => (
           <Transitions type="grow" position={matchesXs ? 'top' : 'top-right'} in={open} {...TransitionProps}>
-            <Paper sx={{ boxShadow: theme.customShadows.z1, width: '100%', minWidth: 285, maxWidth: { xs: 285, md: 420 } }}>
+            <Paper sx={{ boxShadow: theme.customShadows.z1, width: '100%', minWidth: 285, maxWidth: { xs: 285 } }}>
               <ClickAwayListener onClickAway={handleClose}>
                 <MainCard
                   title="Notification"
@@ -244,6 +252,7 @@ export default function Notification() {
           </Transitions>
         )}
       </Popper>
-    </Box>
+
+    </div>
   );
 }
