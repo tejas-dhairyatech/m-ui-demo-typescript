@@ -31,7 +31,7 @@ import UserOutlined from '@ant-design/icons/UserOutlined';
 import avatar1 from '@/assets/images/users/avatar-1.png';
 
 // tab panel wrapper
-function TabPanel({ children, value, index, ...other }: any) {
+function TabPanel({ children, value, index, ...other }) {
   return (
     <div role="tabpanel" hidden={value !== index} id={`profile-tabpanel-${index}`} aria-labelledby={`profile-tab-${index}`} {...other}>
       {value === index && children}
@@ -39,7 +39,7 @@ function TabPanel({ children, value, index, ...other }: any) {
   );
 }
 
-function a11yProps(index: number) {
+function a11yProps(index) {
   return {
     id: `profile-tab-${index}`,
     'aria-controls': `profile-tabpanel-${index}`
@@ -57,7 +57,7 @@ export default function Profile() {
     setOpen((prevOpen) => !prevOpen);
   };
 
-  const handleClose = (event: any) => {
+  const handleClose = (event) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
@@ -66,7 +66,7 @@ export default function Profile() {
 
   const [value, setValue] = useState(0);
 
-  const handleChange = (event: any, newValue: any) => {
+  const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 

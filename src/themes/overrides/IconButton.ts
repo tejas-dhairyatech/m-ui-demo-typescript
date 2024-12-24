@@ -1,6 +1,6 @@
 // ==============================|| OVERRIDES - ICON BUTTON ||============================== //
 
-export default function IconButton(theme:any) {
+export default function IconButton(theme) {
   return {
     MuiIconButton: {
       styleOverrides: {
